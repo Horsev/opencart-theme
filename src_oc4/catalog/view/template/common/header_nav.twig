@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand bg-body-tertiary" id="top">
+	<div class="container">
+		<ul class="navbar-nav">
+			<li class="nav-item">{{ currency }}</li>
+			<li class="nav-item">{{ language }}</li>
+		</ul>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="{{ contact }}" title="{{ telephone }}">
+					<i class="far fa-phone"></i>
+					<span class="d-none d-xl-inline ms-1">{{ telephone }}</span>
+				</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="far fa-user"></i>
+					<span class="d-none d-xl-inline ms-1">{{ text_account
+            }}</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end">
+					{% if not logged %}
+						<li>
+							<a class="dropdown-item" href="{{ register }}">{{ text_register }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ login }}">{{ text_login }}</a>
+						</li>
+					{% else %}
+						<li>
+							<a class="dropdown-item" href="{{ account }}">{{ text_account }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ order }}">{{ text_order }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ transaction }}">{{ text_transaction }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ download }}">{{ text_download }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ logout }}">{{ text_logout }}</a>
+						</li>
+					{% endif %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}">
+					<i class="far fa-heart"></i>
+					<span class="d-none d-xl-inline ms-1">{{ text_wishlist }}</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ shopping_cart }}" title="{{ text_shopping_cart }}">
+					<i class="far fa-cart-shopping"></i>
+					<span class="d-none d-xl-inline ms-1">{{ text_shopping_cart }}</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ checkout }}" title="{{ text_checkout }}">
+					<i class="far fa-share"></i>
+					<span class="d-none d-xl-inline ms-1">{{ text_checkout }}</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

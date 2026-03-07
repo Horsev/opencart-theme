@@ -1,0 +1,104 @@
+{# Playground Theme: override common/cart — edit markup and styles here. #}
+<div class="dropdown">
+	<button type="button" data-bs-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+		<i class="fa-solid fa-cart-shopping"></i>
+		<span class="d-none d-lg-inline ms-1">{{ text_items }}</span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-end">
+		{% if products or vouchers %}
+			<li>
+				<table class="table mb-0">
+					{% for product in products %}
+						<tr>
+							<td class="text-center">
+								{% if product.thumb %}
+									<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail"/></a>
+								{% endif %}
+							</td>
+							<td class="text-start">
+								<a href="{{ product.href }}">{{ product.name }}</a>
+								{% if product.option %}
+									{% for option in product.option %}
+										<br/><small>
+											-
+											{{ option.name }}:
+											{{ option.value }}</small>
+									{% endfor %}
+								{% endif %}
+								{% if product.reward %}<br/><small>
+										-
+										{{ text_points }}:
+										{{ product.reward }}</small>
+								{% endif %}
+								{% if product.subscription %}<br/><small>
+										-
+										{{ text_subscription }}:
+										{{ product.subscription }}</small>
+								{% endif %}
+							</td>
+							<td class="text-end  text-nowrap">x
+								{{ product.quantity }}</td>
+							<td class="text-end text-nowrap">{{ product.total }}</td>
+
+
+							<td class="text-end">
+								<form action="{{ product_remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#header-cart">
+									<input type="hidden" name="key" value="{{ product.cart_id }}">
+									<button type="submit" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+					{% for voucher in vouchers %}
+						<tr>
+							<td class="text-center"></td>
+							<td class="text-start">{{ voucher.description }}</td>
+							<td class="text-end">x&nbsp;1</td>
+							<td class="text-end">{{ voucher.amount }}</td>
+							<td class="text-end">
+								<form action="{{ voucher_remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#header-cart">
+									<input type="hidden" name="key" value="{{ voucher.key }}"/>
+									<button type="submit" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm">
+										<i class="fa-solid fa-circle-xmark"></i>
+									</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+				<div>
+					<table class="table table-sm table-bordered mb-2">
+						{% for total in totals %}
+							<tr>
+								<td class="text-end">
+									<strong>{{ total.title }}</strong>
+								</td>
+								<td class="text-end">{{ total.text }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+
+					<nav class="navbar navbar-expand me-3">
+						<div class="ms-auto">
+							<div class="hstack gap-2">
+								<a href="{{ cart }}" class="btn">
+									<i class="fa-solid fa-cart-shopping"></i>
+									{{ text_cart }}
+								</a>
+								<a href="{{ checkout }}" class="btn btn-primary">
+									<i class="fa-solid fa-share"></i>
+									{{ text_checkout }}
+								</a>
+							</div>
+						</div>
+					</nav>
+
+				</div>
+			</li>
+		{% else %}
+			<li class="text-center p-4">{{ text_no_results }}</li>
+		{% endif %}
+	</ul>
+</div>

@@ -1,0 +1,19 @@
+/**
+ * Playground theme: minimal overrides on top of Bootstrap.
+ * Add only what you need here.
+ */
+
+
+
+ a {
+   text-decoration: none;
+ }
+
+/* Required field marker (common in OC forms) */
+div.required .col-form-label::before,
+div.required .form-label::before {
+  content: "* ";
+  color: #dc3545;
+  font-weight: bold;
+}
+

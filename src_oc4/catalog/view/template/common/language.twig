@@ -1,0 +1,22 @@
+{# Playground Theme: override common/language — edit markup and styles here. #}
+{% if languages|length > 1 %}
+	<div class="dropdown d-inline">
+		<a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle" aria-expanded="false">
+			{% for language in languages %}
+				{% if language.code == code %}
+					<img src="{{ language.image }}" alt="{{ language.name }}" title="{{ language.name }}" class="me-1">
+				{% endif %}
+			{% endfor %}
+			<span class="d-none d-xl-inline">{{ text_language }}</span>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-end">
+			{% for language in languages %}
+				<li>
+					<a href="{{ language.href }}" class="dropdown-item">
+						<img src="{{ language.image }}" alt="{{ language.name }}" title="{{ language.name }}"/> {{ language.name }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

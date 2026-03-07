@@ -1,0 +1,36 @@
+{# Playground Theme: override common/menu — edit markup and styles here. #}
+{% if categories %}
+	<div class="container">
+		<nav id="menu" class="navbar navbar-expand-lg navbar-light">
+			<div id="category" class="d-block d-sm-block d-lg-none">{{ text_category }}</div>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle menu">
+				<i class="fa-solid fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="navbar-nav">
+					{% for category in categories %}
+						{% if category.children %}
+							<li class="nav-item dropdown">
+								<a href="{{ category.href }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
+								<div class="dropdown-menu">
+									<div class="dropdown-inner">
+										{% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+											<ul class="list-unstyled">
+												{% for child in children %}
+													<li><a href="{{ child.href }}" class="dropdown-item">{{ child.name }}</a></li>
+												{% endfor %}
+											</ul>
+										{% endfor %}
+									</div>
+									<a href="{{ category.href }}" class="dropdown-item see-all">{{ text_all }} {{ category.name }}</a>
+								</div>
+							</li>
+						{% else %}
+							<li class="nav-item"><a href="{{ category.href }}" class="nav-link">{{ category.name }}</a></li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</nav>
+	</div>
+{% endif %}

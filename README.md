@@ -7,7 +7,8 @@ OpenCart 4 theme for the opencart-playground stand. This repo sits **on the same
 - **`src_oc4/`** — extension contents, mounted into the container as `extension/playground_theme/`
   - `install.json` — theme metadata (type: theme, code: playground_theme)
   - `catalog/controller/startup/playground_theme.php` — registers template overrides when theme is active
-  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`); add files here to override more templates
+  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`, `common/header_nav.twig`, `common/currency.twig`, `common/language.twig`, `common/search.twig`, `common/cart.twig`, `common/menu.twig`); add files here to override more templates
+  - `catalog/view/stylesheet/custom.css` — minimal theme CSS (header loads this instead of the default OC stylesheet; Bootstrap + icons only otherwise)
   - `admin/` — theme settings in Admin (controller, language, view)
 
 ## Usage in playground
@@ -20,6 +21,8 @@ OpenCart 4 theme for the opencart-playground stand. This repo sits **on the same
 ## Adding overrides
 
 Copy any template from the playground’s `ocdata/catalog/view/template/` into this repo’s `src_oc4/catalog/view/template/` keeping the same path (e.g. `product/product.twig`). When the theme is active and the template exists here, it will be used instead of the default.
+
+**Currency and language:** The header nav outputs `{{ currency }}` and `{{ language }}`, which are rendered by `common/currency.twig` and `common/language.twig`. This theme overrides both under `common/` so you can edit their markup and styling (e.g. to match the top nav).
 
 ## Git repo
 
