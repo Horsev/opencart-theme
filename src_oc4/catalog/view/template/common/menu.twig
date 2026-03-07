@@ -1,11 +1,16 @@
 {# Playground Theme: override common/menu — edit markup and styles here. #}
 {% if categories %}
-	<div class="container">
-		<nav id="menu" class="navbar navbar-expand-lg navbar-light">
-			<div id="category" class="d-block d-sm-block d-lg-none">{{ text_category }}</div>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle menu">
-				<i class="fa-solid fa-bars"></i>
+	<nav id="menu" class="navbar navbar-expand-lg bg-primary mb-2" data-bs-theme="dark">
+		<div class="container">
+			<a class="navbar-brand d-lg-none" href="/" id="category">{{ text_category }}</a>
+
+			<div id="category" class="d-block d-sm-block d-lg-none"></div>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle menu" data-bs-toggle="collapse">
+				<span class="navbar-toggler-icon"></span>
 			</button>
+
+
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="navbar-nav">
 					{% for category in categories %}
@@ -17,20 +22,25 @@
 										{% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
 											<ul class="list-unstyled">
 												{% for child in children %}
-													<li><a href="{{ child.href }}" class="dropdown-item">{{ child.name }}</a></li>
+													<li>
+														<a href="{{ child.href }}" class="dropdown-item">{{ child.name }}</a>
+													</li>
 												{% endfor %}
 											</ul>
 										{% endfor %}
 									</div>
-									<a href="{{ category.href }}" class="dropdown-item see-all">{{ text_all }} {{ category.name }}</a>
+									<a href="{{ category.href }}" class="dropdown-item see-all">{{ text_all }}
+										{{ category.name }}</a>
 								</div>
 							</li>
 						{% else %}
-							<li class="nav-item"><a href="{{ category.href }}" class="nav-link">{{ category.name }}</a></li>
+							<li class="nav-item">
+								<a href="{{ category.href }}" class="nav-link">{{ category.name }}</a>
+							</li>
 						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
-		</nav>
-	</div>
+		</div>
+	</nav>
 {% endif %}
