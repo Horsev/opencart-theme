@@ -1,0 +1,9 @@
+{
+  "name": "Playground Theme",
+  "description": "Custom theme for OpenCart 4 playground — develop in a separate git repo.",
+  "version": "1.0.0",
+  "author": "Playground",
+  "type": "theme",
+  "code": "playground_theme",
+  "link": ""
+}
