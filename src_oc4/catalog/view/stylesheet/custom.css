@@ -3,7 +3,8 @@
  * Add only what you need here.
  */
 
-
+ :root {
+ }
 
  a {
    text-decoration: none;
@@ -17,3 +18,10 @@ div.required .form-label::before {
   font-weight: bold;
 }
 
+svg.fa-icon {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  overflow: visible;
+  vertical-align: -0.25em;
+}

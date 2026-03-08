@@ -10,13 +10,17 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="navbar-nav">
 					{% for category in categories %}
+						{% set route = current_route|default('common/home') %}
+						{% set path = current_path|default('') %}
+						{% set path_first = path ? (path|split('_')|first) : '' %}
+						{% set cat_id = category.category_id|default('') %}
+						{% set is_active = (route == 'product/category' and cat_id != '' and path_first == cat_id) %}
 						{% if category.children %}
-							<li class="nav-item dropdown">
-								<a href="{{ category.href }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
+							<li class="nav-item dropdown {{ is_active ? 'active' : '' }}">
+								<a href="{{ category.href }}" class="nav-link dropdown-toggle {{ is_active ? 'active' : '' }}" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
 								<div class="dropdown-menu">
 									<div class="dropdown-inner">
 										{% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
@@ -34,8 +38,8 @@
 								</div>
 							</li>
 						{% else %}
-							<li class="nav-item">
-								<a href="{{ category.href }}" class="nav-link">{{ category.name }}</a>
+							<li class="nav-item {{ is_active ? 'active' : '' }}">
+								<a href="{{ category.href }}" class="nav-link {{ is_active ? 'active' : '' }}">{{ category.name }}</a>
 							</li>
 						{% endif %}
 					{% endfor %}

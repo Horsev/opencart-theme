@@ -1,6 +1,6 @@
 {# Playground Theme: override common/currency — edit markup and styles here. #}
 {% if currencies|length > 1 %}
-	<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="d-inline">
+	<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency">
 		<div class="dropdown">
 			<a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle" aria-expanded="false">
 				{% for currency in currencies %}

@@ -1,0 +1,61 @@
+{# Playground Theme: override product/thumb — product card in category/search/listings. Edit markup here. #}
+<div class="product-thumb card h-100">
+	<div class="image">
+		<a href="{{ href }}"><img src="{{ thumb }}" alt="{{ name }}" title="{{ name }}" class="card-img-top img-fluid"/></a>
+	</div>
+	<div class="card-body d-flex flex-column">
+		<div class="description">
+			<h4 class="card-title h6">
+				<a href="{{ href }}" class="text-decoration-none">{{ name }}</a>
+			</h4>
+			<p class="card-text small">{{ description }}</p>
+			{% if price %}
+				<div class="price mb-2">
+					{% if not special %}
+						<span class="price-new fw-bold">{{ price }}</span>
+					{% else %}
+						<span class="price-new fw-bold">{{ special }}</span>
+						<span class="price-old text-muted text-decoration-line-through small">{{ price }}</span>
+					{% endif %}
+					{% if tax %}
+						<span class="price-tax d-block small text-muted">{{ text_tax }}
+							{{ tax }}</span>
+					{% endif %}
+				</div>
+			{% endif %}
+			{% if review_status and rating %}
+				<div class="rating small text-warning mb-2">
+					{% for i in 1..5 %}
+						{% if rating < i %}
+							<span class="fa-stack">
+								<i class="fa-regular fa-star fa-stack-1x"></i>
+							</span>
+						{% else %}
+							<span class="fa-stack">
+								<i class="fa-solid fa-star fa-stack-1x"></i>
+								<i class="fa-regular fa-star fa-stack-1x"></i>
+							</span>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+		<form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#header-cart" class="mt-auto">
+			<div class="button-group btn-group btn-group-sm">
+				<button type="submit" formaction="{{ add_to_cart }}" data-bs-toggle="tooltip" title="{{ button_cart }}" class="btn btn-primary">
+					<i class="fa-solid fa-shopping-cart"></i>
+				</button>
+				<button type="submit" formaction="{{ add_to_wishlist }}" data-bs-toggle="tooltip" title="{{ button_wishlist }}" class="btn btn-primary">
+
+					<i class="fa-solid fa-heart"></i>
+				</button>
+				<button type="submit" formaction="{{ add_to_compare }}" data-bs-toggle="tooltip" title="{{ button_compare }}" class="btn btn-primary">
+
+					<i class="fa-solid fa-arrow-right-arrow-left"></i>
+				</button>
+			</div>
+			<input type="hidden" name="product_id" value="{{ product_id }}"/>
+			<input type="hidden" name="quantity" value="{{ minimum }}"/>
+		</form>
+	</div>
+</div>

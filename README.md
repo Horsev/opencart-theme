@@ -7,7 +7,7 @@ OpenCart 4 theme for the opencart-playground stand. This repo sits **on the same
 - **`src_oc4/`** — extension contents, mounted into the container as `extension/playground_theme/`
   - `install.json` — theme metadata (type: theme, code: playground_theme)
   - `catalog/controller/startup/playground_theme.php` — registers template overrides when theme is active
-  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`, `common/header_nav.twig`, `common/currency.twig`, `common/language.twig`, `common/search.twig`, `common/cart.twig`, `common/menu.twig`); add files here to override more templates
+  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`, `common/header_nav.twig`, `common/currency.twig`, `common/language.twig`, `common/search.twig`, `common/cart.twig`, `common/menu.twig`, `common/home.twig`, `product/category.twig`, `product/thumb.twig`); add files here to override more templates
   - `catalog/view/stylesheet/custom.css` — minimal theme CSS (header loads this instead of the default OC stylesheet; Bootstrap + icons only otherwise)
   - `admin/` — theme settings in Admin (controller, language, view)
 

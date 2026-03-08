@@ -7,13 +7,13 @@
 		<ul class="navbar-nav">
 			<li class="nav-item">
 				<a class="nav-link" href="{{ contact }}" title="{{ telephone }}">
-					<i class="far fa-phone"></i>
+					{% include 'extension/playground_theme/catalog/view/template/icons/phone_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ telephone }}</span>
 				</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="far fa-user"></i>
+          {% include 'extension/playground_theme/catalog/view/template/icons/user_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_account
             }}</span>
 				</a>
@@ -46,19 +46,19 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}">
-					<i class="far fa-heart"></i>
+					{% include 'extension/playground_theme/catalog/view/template/icons/heart_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_wishlist }}</span>
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ shopping_cart }}" title="{{ text_shopping_cart }}">
-					<i class="far fa-cart-shopping"></i>
+					{% include 'extension/playground_theme/catalog/view/template/icons/cart_shopping_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_shopping_cart }}</span>
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ checkout }}" title="{{ text_checkout }}">
-					<i class="far fa-share"></i>
+					{% include 'extension/playground_theme/catalog/view/template/icons/credit_card_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_checkout }}</span>
 				</a>
 			</li>

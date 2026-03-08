@@ -84,11 +84,13 @@
 						<div class="ms-auto">
 							<div class="hstack gap-2">
 								<a href="{{ cart }}" class="btn">
-									<i class="fa-solid fa-cart-shopping"></i>
+									{% include 'extension/playground_theme/catalog/view/template/icons/cart_shopping_regular_full.twig' %}
+
 									{{ text_cart }}
 								</a>
-								<a href="{{ checkout }}" class="btn btn-primary">
-									<i class="fa-solid fa-share"></i>
+								<a href="{{ checkout }}" class="btn btn-success">
+									{% include 'extension/playground_theme/catalog/view/template/icons/credit_card_regular_full.twig' %}
+
 									{{ text_checkout }}
 								</a>
 							</div>
