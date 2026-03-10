@@ -1,0 +1,34 @@
+{# Playground Theme: pagination (Bootstrap 5 compatible). #}
+<ul class="pagination mx-auto">
+	{% if first %}
+		<li class="page-item">
+			<a href="{{ first }}" class="page-link" aria-label="First">{% include 'extension/playground_theme/catalog/view/template/icons/arrow-left-long-to-line-regular-full.twig' %}</a>
+		</li>
+	{% endif %}
+	{% if prev %}
+		<li class="page-item">
+			<a href="{{ prev }}" class="page-link" aria-label="Previous">{% include 'extension/playground_theme/catalog/view/template/icons/arrow-left-regular-full.twig' %}</a>
+		</li>
+	{% endif %}
+	{% for link in links %}
+		{% if link.page == page %}
+			<li class="page-item active" aria-current="page">
+				<span class="page-link">{{ link.page }}</span>
+			</li>
+		{% else %}
+			<li class="page-item">
+				<a href="{{ link.href }}" class="page-link">{{ link.page }}</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+	{% if next %}
+		<li class="page-item">
+			<a href="{{ next }}" class="page-link" aria-label="Next">{% include 'extension/playground_theme/catalog/view/template/icons/arrow-right-regular-full.twig' %}</a>
+		</li>
+	{% endif %}
+	{% if last %}
+		<li class="page-item">
+			<a href="{{ last }}" class="page-link" aria-label="{{ text_last }}">{% include 'extension/playground_theme/catalog/view/template/icons/arrow-right-to-line-regular-full.twig' %}</a>
+		</li>
+	{% endif %}
+</ul>
