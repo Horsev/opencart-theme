@@ -1,0 +1,146 @@
+<form id="form-review">
+	<div id="review">
+		{% if list|trim == '' %}
+			<p class="text-center mb-0">{{ text_no_reviews|default('There are no reviews for this product.') }}</p>
+		{% else %}
+			{{ list|raw }}
+		{% endif %}
+	</div>
+	<fieldset>
+		<legend>{{ text_write }}</legend>
+		{% if review_guest %}
+			<div class="row g-1 mb-3 required">
+				<div class="col-12 col-md-3">
+					<label class="form-label">{{ entry_rating }}</label>
+				</div>
+				<div class="col-12 col-md-9">
+					<div id="input-rating">
+						{% for i in 1..5 %}
+							<div class="form-check form-check-inline ps-0 me-0">
+								<input type="radio" name="rating" id="star{{ i - 1 }}" value="{{ i }}" class="form-check-input" hidden/>
+								<label class="form-check-label" for="star{{ i - 1 }}">
+									<span data-oc-star="far">
+										<i class="fa-star far"></i>
+									</span>
+									<span class="d-none" data-oc-star="fas">
+										<i class="fa-star fas text-warning"></i>
+									</span>
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+					<div id="error-rating" class="invalid-feedback"></div>
+				</div>
+			</div>
+
+			<div class="row g-1 mb-3 required">
+				<div class="col-12 col-md-3">
+					<label class="form-label" for="input-name">{{ entry_name }}</label>
+				</div>
+				<div class="col-12 col-md-9">
+					<input type="text" name="name" value="{{ customer_name }}" id="input-name" class="form-control"/>
+					<div id="error-name" class="invalid-feedback"></div>
+				</div>
+			</div>
+
+			<div class="row g-1 mb-3 required">
+				<div class="col-12">
+					<label class="form-label" for="input-text">{{ entry_review }}</label>
+				</div>
+				<div class="col-12">
+					<textarea id="input-text" class="form-control" name="text" rows="3"></textarea>
+					<div id="error-text" class="invalid-feedback"></div>
+					<div class="invalid-feedback">
+						<span class="text-danger">{{ text_note|default('Note:') }}</span>
+						{{ text_html_not_translated|default('HTML is not translated!') }}
+					</div>
+				</div>
+				<div class="col-12"></div>
+			</div>
+			{{ captcha }}
+			<button type="submit" id="button-review" class="btn btn-primary">{{ button_continue }}</button>
+		{% else %}
+			{{ text_login }}
+		{% endif %}
+	</fieldset>
+</form>
+<script
+	type="text/javascript">
+	<!--
+	const formReview = document.getElementById('form-review');
+if (formReview) {
+var getSelectedRating = function () {
+var checked = formReview.querySelector('input[name="rating"]:checked');
+return checked ? parseInt(checked.value, 10) : 0;
+};
+var updateRating = function () {
+var rating = getSelectedRating();
+var labels = formReview.querySelectorAll('label.form-check-label[for^="star"]');
+labels.forEach(function (label, index) {
+var farWrap = label.querySelector('[data-oc-star="far"]');
+var fasWrap = label.querySelector('[data-oc-star="fas"]');
+if (! farWrap || ! fasWrap) 
+return;
+
+
+
+var active = index < rating;
+farWrap.classList.toggle('d-none', active);
+fasWrap.classList.toggle('d-none', ! active);
+});
+};
+formReview.addEventListener('change', updateRating);
+document.addEventListener('DOMContentLoaded', updateRating);
+}
+
+$('#review').on('click', '.pagination a', function (e) {
+e.preventDefault();
+$('#review').load(this.href);
+});
+
+$('#form-review').on('submit', function (e) {
+e.preventDefault();
+$.ajax({
+url: 'index.php?route=product/review.write&language=      {{ language }}&review_token=      {{ review_token }}&product_id=      {{ product_id }}',
+type: 'post',
+data: $('#form-review').serialize(),
+dataType: 'json',
+cache: false,
+contentType: 'application/x-www-form-urlencoded',
+processData: false,
+beforeSend: function () {
+$('#button-review').button('loading');
+},
+complete: function () {
+$('#button-review').button('reset');
+},
+success: function (json) {
+$('.alert-dismissible').remove();
+$('#form-review').find('.is-invalid').removeClass('is-invalid');
+$('#form-review').find('.invalid-feedback').removeClass('d-block');
+
+if (json['error']) {
+if (json['error']['warning']) {
+$('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+}
+for (var key in json['error']) {
+$('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+$('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+}
+}
+
+if (json['success']) {
+$('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+$('#input-text').val('');
+$('#input-rating input[type=\'radio\']').prop('checked', false);
+$('#form-review').trigger('change');
+}
+},
+error: function (xhr, ajaxOptions, thrownError) {
+console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+}
+});
+});
+//
+	-->
+</script>

@@ -7,7 +7,7 @@ OpenCart 4 theme for the opencart-playground stand. This repo sits **on the same
 - **`src_oc4/`** — extension contents, mounted into the container as `extension/playground_theme/`
   - `install.json` — theme metadata (type: theme, code: playground_theme)
   - `catalog/controller/startup/playground_theme.php` — registers template overrides and `controller/product/thumb/before` to inject thumb_40, thumb_136, thumb_250 for picture/srcset
-  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`, `common/pagination.twig`, … `product/thumb.twig`); `product/thumb.twig` uses `<picture>` with `srcset` (40w, 136w, 250w) when multiple sizes are available (injected by `controller/product/thumb/before`). Add files here to override more templates.
+  - `catalog/view/template/` — Twig overrides (e.g. `common/header.twig`, `common/pagination.twig`, `product/product.twig`, `product/thumb.twig`); `product/thumb.twig` uses `<picture>` with `srcset` (40w, 136w, 250w) when multiple sizes are available (injected by `controller/product/thumb/before`). Add files here to override more templates.
   - `catalog/view/stylesheet/custom.css` — minimal theme CSS (header loads this instead of the default OC stylesheet; Bootstrap + icons only otherwise)
   - `admin/` — theme settings in Admin (controller, language, view)
 
