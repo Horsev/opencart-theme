@@ -1,0 +1,41 @@
+{# Playground Theme: shared sort/limit/grid-list/compare bar — use in category_products and manufacturer_info. #}
+<div id="display-control" class="row row-cols-auto g-3 mb-3">
+	<div class="col-6 col-sm-auto">
+		<div class="input-group ">
+			<label for="input-sort" class="input-group-text">
+				{{ text_sort }}
+			</label>
+			<select id="input-sort" class="form-select" onchange="location = this.value;">
+				{% for sorts in sorts %}
+					<option value="{{ sorts.href }}" {% if sorts.value == '%s-%s'|format(sort, order) %} selected {% endif %}>{{ sorts.text }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+	<div class="col-6 col-sm-auto">
+		<div class="input-group">
+			<label for="input-limit" class="input-group-text">{{ text_limit }}</label>
+			<select id="input-limit" class="form-select" onchange="location = this.value;">
+				{% for limits in limits %}
+					<option value="{{ limits.href }}" {% if limits.value == limit %} selected {% endif %}>{{ limits.text }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+	<div class="col">
+		<a href="{{ compare }}" id="compare-total" class="btn btn-light border">
+			<i class="fa-solid fa-arrow-right-arrow-left"></i>
+			<span class="d-sm-none d-lg-inline ms-1">{{ text_compare }}</span>
+		</a>
+	</div>
+	<div class="col ms-auto mx-sm-auto ms-md-auto me-lg-0">
+		<div class="btn-group border">
+			<button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}">
+				{% include 'extension/playground_theme/catalog/view/template/icons/table-list-regular-full.twig' %}
+			</button>
+			<button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}">
+				{% include 'extension/playground_theme/catalog/view/template/icons/table-cells-regular-full.twig' %}
+			</button>
+		</div>
+	</div>
+</div>

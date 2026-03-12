@@ -26,3 +26,9 @@ svg.fa-icon {
   overflow: visible;
   vertical-align: -0.25em;
 }
+
+.oc-cart-img-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}

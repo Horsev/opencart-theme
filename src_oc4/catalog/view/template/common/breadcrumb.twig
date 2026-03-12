@@ -1,0 +1,16 @@
+{# Playground Theme: breadcrumb nav — reusable on any page that passes breadcrumbs (list of { href, text }). Optional: breadcrumb_id for nav id (default breadcrumb-nav). #}
+{% if breadcrumbs is defined and breadcrumbs|length %}
+	<nav id="{{ breadcrumb_id|default('breadcrumb-nav') }}" class="navbar" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+		<div class="container">
+			<ol class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">
+							{{ breadcrumb.text }}
+						</a>
+					</li>
+				{% endfor %}
+			</ol>
+		</div>
+	</nav>
+{% endif %}

@@ -1,0 +1,28 @@
+{# Playground Theme: override extension/opencart/module/category — category list in sidebar. Bootstrap accordion + list-group. #}
+<div class="accordion accordion-flush mb-3" id="categoryMenuAccordion">
+	{% for category in categories %}
+		{% set is_current = (category.category_id == category_id) %}
+		<div class="accordion-item bg-transparent">
+			{% if category.children %}
+				<h2 class="accordion-header" id="heading-{{ category.category_id }}">
+					<button class="accordion-button bg-transparent {{ is_current ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category.category_id }}" aria-expanded="{{ is_current ? 'true' : 'false' }}" aria-controls="collapse-{{ category.category_id }}">
+						{{ category.name }}
+					</button>
+				</h2>
+				<div class="accordion-collapse collapse {{ is_current ? 'show' : '' }}" id="collapse-{{ category.category_id }}" aria-labelledby="heading-{{ category.category_id }}" data-bs-parent="#categoryMenuAccordion">
+					<div class="accordion-body p-0">
+						<div class="list-group list-group-flush">
+							{% for child in category.children %}
+								<a href="{{ child.href }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fw-medium {{ (child.category_id == child_id) ? 'active' : 'bg-transparent' }}">{{ child.name }}</a>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="accordion-header">
+					<a href="{{ category.href }}" class="accordion-button bg-transparent collapsed py-2 text-decoration-none {{ is_current ? 'active' : '' }}">{{ category.name }}</a>
+				</div>
+			{% endif %}
+		</div>
+	{% endfor %}
+</div>

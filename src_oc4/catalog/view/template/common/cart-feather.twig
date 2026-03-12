@@ -1,0 +1,92 @@
+{# Cart dropdown: same structure as cart_feather_inner (loaded into #header-cart-feather by JS). #}
+<div class="container collapse" id="header-cart-feather" aria-labelledby="header-cart-feather-label">
+	<section class="bg-body rounded mb-3">
+		<h1 class="h1 p-5">{{ text_shopping_cart }}</h1>
+		{% if products or vouchers %}
+			<table class="table mb-0">
+				{% for product in products %}
+					<tr>
+						<td class="text-center">
+							{% if product.thumb %}
+								<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="oc-cart-img-thumbnail"/></a>
+							{% endif %}
+						</td>
+						<td class="text-start">
+							<a href="{{ product.href }}">{{ product.name }}</a>
+							{% if product.option %}
+								{% for option in product.option %}
+									<br/><small>-
+										{{ option.name }}:
+										{{ option.value }}</small>
+								{% endfor %}
+							{% endif %}
+							{% if product.reward %}<br/><small>-
+									{{ text_points }}:
+									{{ product.reward }}</small>
+							{% endif %}
+							{% if product.subscription %}<br/><small>-
+									{{ text_subscription }}:
+									{{ product.subscription }}</small>
+							{% endif %}
+						</td>
+						<td class="text-end text-nowrap">x
+							{{ product.quantity }}</td>
+						<td class="text-end text-nowrap">{{ product.total }}</td>
+						<td class="text-end pe-5">
+							<form action="{{ product_remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#header-cart-feather">
+								<input type="hidden" name="key" value="{{ product.cart_id }}">
+								<button type="submit" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-sm">
+									<i class="fa-solid fa-circle-xmark"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+				{% for voucher in vouchers %}
+					<tr>
+						<td class="text-center"></td>
+						<td class="text-start">{{ voucher.description }}</td>
+						<td class="text-end">x&nbsp;1</td>
+						<td class="text-end">{{ voucher.amount }}</td>
+						<td class="text-end pe-5">
+
+							<form action="{{ voucher_remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#header-cart-feather">
+								<input type="hidden" name="key" value="{{ voucher.key }}"/>
+								<button type="submit" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-sm">
+									<i class="fa-solid fa-circle-xmark"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	<table class="table mb-3">
+		{% for total in totals %}
+			<tr>
+				<td class="text-end">
+					<strong>{{ total.title }}</strong>
+				</td>
+				<td class="text-end pe-5">{{ total.text }}</td>
+
+			</tr>
+		{% endfor %}
+	</table>
+	<nav class="navbar navbar-expand p-5 mb-3">
+		<div class="ms-auto">
+			<div class="hstack gap-2">
+				<a href="{{ cart_url|default(cart) }}" class="btn">
+					{% include 'extension/playground_theme/catalog/view/template/icons/cart_shopping_regular_full.twig' %}
+					{{ text_cart }}
+				</a>
+				<a href="{{ checkout }}" class="btn btn-success">
+					{% include 'extension/playground_theme/catalog/view/template/icons/credit_card_regular_full.twig' %}
+					{{ text_checkout }}
+				</a>
+			</div>
+		</div>
+	</nav>
+{% else %}
+	<p class="text-center p-5">{{ text_no_results }}</p>
+{% endif %}</section></div>

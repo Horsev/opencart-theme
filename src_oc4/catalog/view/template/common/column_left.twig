@@ -1,0 +1,8 @@
+{# Playground Theme: override common/column_left — left sidebar layout and module output. Edit markup and classes here. #}
+{% if modules %}
+<aside id="column-left" class="col-3 d-none d-md-block">
+	{% for module in modules %}
+		{{ module }}
+	{% endfor %}
+</aside>
+{% endif %}

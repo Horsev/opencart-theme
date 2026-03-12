@@ -28,6 +28,7 @@
 		{% for script in scripts %}
 			<script src="{{ script.href }}" type="text/javascript"></script>
 		{% endfor %}
+		<script src="extension/playground_theme/catalog/view/javascript/cart-collapse.js" type="text/javascript"></script>
 		{% for link in links %}
 			<link href="{{ link.href }}" rel="{{ link.rel }}"/>
 		{% endfor %}
@@ -35,7 +36,7 @@
 			{{ analytic }}
 		{% endfor %}
 	</head>
-	<body class="bg-body-tertiary theme-playground"></body>
+	<body class="bg-body-tertiary theme-playground" data-cart-info-url="{{ cart_info_url|default('') }}"></body>
 
 	<!-- <pre>Updated: {{ date('now')|date("H:i:s") }}</pre> -->
 
@@ -61,6 +62,7 @@
 				<div id="header-cart" class="">{{ cart }}</div>
 			</div>
 		</nav>
+		{% include 'extension/playground_theme/catalog/view/template/common/cart-feather.twig' %}
 	</header>
 
 	<main>

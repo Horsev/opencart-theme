@@ -1,42 +1,5 @@
 {# Playground Theme: product listing block for category page (sort, limit, grid/list, compare, product list, pagination). #}
-<div id="display-control" class="row row-cols-auto g-3 mb-3">
-	<div class="col-6 col-sm-auto">
-		<div class="input-group">
-			<label for="input-sort" class="input-group-text">{{ text_sort }}</label>
-			<select id="input-sort" class="form-select" onchange="location = this.value;">
-				{% for sorts in sorts %}
-					<option value="{{ sorts.href }}" {% if sorts.value == '%s-%s'|format(sort, order) %} selected {% endif %}>{{ sorts.text }}</option>
-				{% endfor %}
-			</select>
-		</div>
-	</div>
-	<div class="col-6 col-sm-auto">
-		<div class="input-group">
-			<label for="input-limit" class="input-group-text">{{ text_limit }}</label>
-			<select id="input-limit" class="form-select" onchange="location = this.value;">
-				{% for limits in limits %}
-					<option value="{{ limits.href }}" {% if limits.value == limit %} selected {% endif %}>{{ limits.text }}</option>
-				{% endfor %}
-			</select>
-		</div>
-	</div>
-	<div class="col">
-		<div class="btn-group border">
-			<button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}">
-				{% include 'extension/playground_theme/catalog/view/template/icons/table-list-regular-full.twig' %}
-			</button>
-			<button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}">
-				{% include 'extension/playground_theme/catalog/view/template/icons/table-cells-regular-full.twig' %}
-			</button>
-		</div>
-	</div>
-	<div class="col mx-sm-auto ms-lg-auto me-lg-0">
-		<a href="{{ compare }}" id="compare-total" class="btn btn-light border">
-			<i class="fa-solid fa-arrow-right-arrow-left"></i>
-			<span class="d-md-none d-xxl-inline">{{ text_compare }}</span>
-		</a>
-	</div>
-</div>
+{% include 'extension/playground_theme/catalog/view/template/product/display_control.twig' %}
 
 {# Grid/list classes: override common.js by defining them here; script below applies these when toggling. #}
 {% set product_list_grid_class = product_list_grid_class|default('row row-cols-1 row-cols-sm-2 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 g-3') %}

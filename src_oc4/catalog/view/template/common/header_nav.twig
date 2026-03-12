@@ -13,7 +13,7 @@
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {% include 'extension/playground_theme/catalog/view/template/icons/user_regular_full.twig' %}
+					{% include 'extension/playground_theme/catalog/view/template/icons/user_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_account
             }}</span>
 				</a>
@@ -50,18 +50,14 @@
 					<span class="d-none d-xl-inline ms-1">{{ text_wishlist }}</span>
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{ shopping_cart }}" title="{{ text_shopping_cart }}">
-					{% include 'extension/playground_theme/catalog/view/template/icons/cart_shopping_regular_full.twig' %}
-					<span class="d-none d-xl-inline ms-1">{{ text_shopping_cart }}</span>
-				</a>
-			</li>
+			{% if products or vouchers %}
 			<li class="nav-item">
 				<a class="nav-link" href="{{ checkout }}" title="{{ text_checkout }}">
 					{% include 'extension/playground_theme/catalog/view/template/icons/credit_card_regular_full.twig' %}
 					<span class="d-none d-xl-inline ms-1">{{ text_checkout }}</span>
 				</a>
 			</li>
+			{% endif %}
 		</ul>
 	</div>
 </nav>

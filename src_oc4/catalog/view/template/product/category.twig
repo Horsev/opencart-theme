@@ -1,81 +1,68 @@
 {# Playground Theme: override product/category — category page layout and product listing. #}
 {{ header }}
-<div class="container">
-	<nav id="product-category" class="navbar" aria-label="breadcrumb">
-		<div class="container">
-			<ol class="breadcrumb">
-				{% for breadcrumb in breadcrumbs %}
-					<li class="breadcrumb-item">
-						<a href="{{ breadcrumb.href }}">
-							{{ breadcrumb.text }}
-						</a>
-					</li>
-				{% endfor %}
-			</ol>
-		</div>
-	</nav>
+{% include 'extension/playground_theme/catalog/view/template/common/breadcrumb.twig' with { breadcrumb_id: 'product-category' } %}
 
-	<div class="container">
-		<div class="row">
-			{{ column_left }}
-			<div id="content" class="col">
-				{{ content_top }}
-				<h2>{{ heading_title }}</h2>
-				{% if thumb or description %}
-					<div class="hstack gap-3 mb-3">
-						{% if thumb %}
-							<div class=""><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail border-0"/></div>
-						{% endif %}
-						{% if description %}
-							<div class="">
-								<p>{{ description }}</p>
-							</div>
-						{% endif %}
+<div class="container">
+	<div class="row">
+		{{ column_left }}
+		<div id="content" class="col">
+			{{ content_top }}
+			<h2>{{ heading_title }}</h2>
+			{% if thumb or description %}
+				<div class="hstack gap-3 mb-3">
+					{% if thumb %}
+						<div class=""><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail border-0"/></div>
+					{% endif %}
+					{% if description %}
+						<div class="">
+							<p>{{ description }}</p>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+			{% if categories %}
+				<h3>{{ text_refine }}</h3>
+				{% if categories|length <= 5 %}
+					<div class="row">
+						<div class="col-sm-3">
+							<ul class="list-unstyled">
+								{% for category in categories %}
+									<li>
+										<a href="{{ category.href }}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
 					</div>
-				{% endif %}
-				{% if categories %}
-					<h3>{{ text_refine }}</h3>
-					{% if categories|length <= 5 %}
-						<div class="row">
-							<div class="col-sm-3">
+				{% else %}
+					<div class="row row-cols-sm-2 row-cols-lg-4">
+						{% for category in categories|batch((categories|length / 4)|round(1, 'ceil')) %}
+							<div class="col">
 								<ul class="list-unstyled">
-									{% for category in categories %}
+									{% for child in category %}
 										<li>
-											<a href="{{ category.href }}">{{ category.name }}</a>
+											<a href="{{ child.href }}">{{ child.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
 							</div>
-						</div>
-					{% else %}
-						<div class="row row-cols-sm-2 row-cols-lg-4">
-							{% for category in categories|batch((categories|length / 4)|round(1, 'ceil')) %}
-								<div class="col">
-									<ul class="list-unstyled">
-										{% for child in category %}
-											<li>
-												<a href="{{ child.href }}">{{ child.name }}</a>
-											</li>
-										{% endfor %}
-									</ul>
-								</div>
-							{% endfor %}
-						</div>
-						<br/>
-					{% endif %}
-				{% endif %}
-				{% if products %}
-					{% include 'extension/playground_theme/catalog/view/template/product/category_products.twig' %}
-				{% endif %}
-				{% if not categories and not products %}
-					<p>{{ text_no_results }}</p>
-					<div class="text-end">
-						<a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a>
+						{% endfor %}
 					</div>
+					<br/>
 				{% endif %}
-				{{ content_bottom }}
-			</div>
-			{{ column_right }}
+			{% endif %}
+			{% if products %}
+				{% include 'extension/playground_theme/catalog/view/template/product/category_products.twig' %}
+			{% endif %}
+			{% if not categories and not products %}
+				<p>{{ text_no_results }}</p>
+				<div class="text-end">
+					<a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a>
+				</div>
+			{% endif %}
+			{{ content_bottom }}
 		</div>
+		{{ column_right }}
 	</div>
-	{{ footer }}
+</div>
+{{ footer }}

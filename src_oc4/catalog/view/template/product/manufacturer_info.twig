@@ -1,0 +1,63 @@
+{# Playground Theme: override product/manufacturer_info — use theme breadcrumb. #}
+{{ header }}
+{% include 'extension/playground_theme/catalog/view/template/common/breadcrumb.twig' with { breadcrumb_id: 'product-manufacturer' } %}
+
+<div id="product-manufacturer" class="container">
+	<div class="row">{{ column_left }}
+		<div id="content" class="col">{{ content_top }}
+			<h2>{{ heading_title }}</h2>
+			{% if products %}
+				{% include 'extension/playground_theme/catalog/view/template/product/display_control.twig' %}
+				{% set product_list_grid_class = 'row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4' %}
+
+				{% set product_list_list_class = 'row row-cols-1 g-3' %}
+				<div id="product-list" class="{{ product_list_grid_class }}" data-display-grid="{{ product_list_grid_class }}" data-display-list="{{ product_list_list_class }}">
+					{% for product in products %}
+						<div class="col mb-3">{{ product }}</div>
+					{% endfor %}
+				</div>
+				<div class="col-12 py-4 d-flex">
+					{{ pagination }}
+				</div>
+				<div class="col-12 text-end">{{ results }}</div>
+				<script>
+					$(function () {
+var $list = $('#product-list');
+var gridClass = $list.data('display-grid');
+var listClass = $list.data('display-list');
+if (! gridClass || ! listClass) 
+return;
+
+$('#button-list').off('click').on('click', function () {
+$list.attr('class', listClass);
+$('#button-grid').removeClass('active');
+$('#button-list').addClass('active');
+localStorage.setItem('display', 'list');
+});
+$('#button-grid').off('click').on('click', function () {
+$list.attr('class', gridClass);
+$('#button-list').removeClass('active');
+$('#button-grid').addClass('active');
+localStorage.setItem('display', 'grid');
+});
+if (localStorage.getItem('display') === 'list') {
+$list.attr('class', listClass);
+$('#button-grid').removeClass('active');
+$('#button-list').addClass('active');
+} else {
+$list.attr('class', gridClass);
+$('#button-list').removeClass('active');
+$('#button-grid').addClass('active');
+}
+});
+				</script>
+			{% else %}
+				<p>{{ text_no_results }}</p>
+				<div class="text-end">
+					<a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a>
+				</div>
+			{% endif %}
+			{{ content_bottom }}</div>
+		{{ column_right }}</div>
+</div>
+{{ footer }}
